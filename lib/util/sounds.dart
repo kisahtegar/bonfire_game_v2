@@ -11,6 +11,10 @@ class Sounds {
     ]);
   }
 
+  static void attackEnemyMelee() {
+    FlameAudio.play('attack_enemy.mp3', volume: 0.4);
+  }
+  
   static void interaction() {
     FlameAudio.play('sound_interaction.wav', volume: 0.4);
   }
@@ -22,7 +26,7 @@ class Sounds {
   static void attackRange() {
     FlameAudio.play('attack_fire_ball.wav', volume: 0.3);
   }
-
+  
   static void explosion() {
     FlameAudio.play('explosion.wav');
   }
