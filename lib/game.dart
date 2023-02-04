@@ -75,7 +75,7 @@ class _GameState extends State<Game> implements GameListener {
             'torch': (p) => Torch(p.position),
             'wizard': (p) => WizardNpc(p.position),
             'goblin': (p) => GoblinEnemy(p.position),
-            'minibos': (p) => MiniBoss(p.position),
+            'mini_boss': (p) => MiniBoss(p.position),
           },
         ),
         progress: Container(
