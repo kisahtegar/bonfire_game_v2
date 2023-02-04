@@ -4,6 +4,8 @@ import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
 
 import 'decoration/torch.dart';
+
+import 'enemies/imp_enemy.dart';
 import 'interface/knight_interface.dart';
 import 'enemies/goblin_enemy.dart';
 import 'enemies/miniboss_enemy.dart';
@@ -78,6 +80,7 @@ class _GameState extends State<Game> implements GameListener {
             'wizard': (p) => WizardNpc(p.position),
             'goblin': (p) => GoblinEnemy(p.position),
             'mini_boss': (p) => MiniBoss(p.position),
+            'imp': (p) => Imp(p.position),
           },
         ),
         progress: Container(
