@@ -79,7 +79,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
     }
 
     Sounds.attackPlayerMelee();
-    // decrementStamina(15);
+    decrementStamina(15);
     simpleAttackMelee(
       damage: attack,
       animationRight: PlayerSpriteSheet.attackEffectRight(),
@@ -94,7 +94,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
     }
 
     Sounds.attackRange();
-
+    decrementStamina(10);
     simpleAttackRange(
       animationRight: GameSpriteSheet.fireBallAttackRight(),
       animationLeft: GameSpriteSheet.fireBallAttackLeft(),
@@ -119,5 +119,99 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
         color: Colors.deepOrangeAccent.withOpacity(0.4),
       ),
     );
+  }
+
+  // Player Dead
+  @override
+  void die() {
+    removeFromParent();
+    gameRef.add(
+      GameDecoration.withSprite(
+        sprite: Sprite.load('player/crypt.png'),
+        position: Vector2(
+          position.x,
+          position.y,
+        ),
+        size: Vector2.all(30),
+      ),
+    );
+    super.die();
+  }
+
+  // Updating player
+  @override
+  void update(double dt) {
+    if (isDead) return;
+    _verifyStamina();
+    seeEnemy(
+      radiusVision: tileSize * 6,
+      notObserved: () {
+        showObserveEnemy = false;
+      },
+      observed: (enemies) {
+        if (showObserveEnemy) return;
+        showObserveEnemy = true;
+        _showEmote();
+      },
+    );
+    super.update(dt);
+  }
+
+  // verify playe stamina
+  void _verifyStamina() {
+    if (_timerStamina == null) {
+      _timerStamina = async.Timer(const Duration(milliseconds: 150), () {
+        _timerStamina = null;
+      });
+    } else {
+      return;
+    }
+
+    stamina += 2;
+    if (stamina > 100) {
+      stamina = 100;
+    }
+  }
+
+  // Showing emote
+  void _showEmote({String emote = 'emote/emote_exclamacao.png'}) {
+    gameRef.add(
+      AnimatedFollowerObject(
+        animation: SpriteAnimation.load(
+          emote,
+          SpriteAnimationData.sequenced(
+            amount: 8,
+            stepTime: 0.1,
+            textureSize: Vector2(32, 32),
+          ),
+        ),
+        target: this,
+        size: Vector2(32, 32),
+        positionFromTarget: Vector2(18, -6),
+      ),
+    );
+  }
+
+  // Decrement stamina while player using attack
+  void decrementStamina(int i) {
+    stamina -= i;
+    if (stamina < 0) {
+      stamina = 0;
+    }
+  }
+
+  // Receive Damage
+  @override
+  void receiveDamage(AttackFromEnum attacker, double damage, dynamic identify) {
+    if (isDead) return;
+    showDamage(
+      damage,
+      config: TextStyle(
+        fontSize: valueByTileSize(5),
+        color: Colors.orange,
+        fontFamily: 'Normal',
+      ),
+    );
+    super.receiveDamage(attacker, damage, identify);
   }
 }
