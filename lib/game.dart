@@ -4,6 +4,7 @@ import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
 
 import 'decoration/torch.dart';
+import 'interface/knight_interface.dart';
 import 'enemies/goblin_enemy.dart';
 import 'main.dart';
 import 'npc/wizard_npc.dart';
@@ -67,6 +68,7 @@ class _GameState extends State<Game> implements GameListener {
         ),
         lightingColorGame: Colors.black.withOpacity(0.6),
         background: BackgroundColorGame(Colors.grey[900]!),
+        interface: KnightInterface(),
         map: WorldMapByTiled(
           'tiled/map.json',
           forceTileSize: Vector2(tileSize, tileSize),
