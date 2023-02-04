@@ -1,8 +1,9 @@
 import 'dart:convert';
 
-import 'strings_location.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'strings_location.dart';
 
 class MyLocalizations {
   MyLocalizations(this.locale) {
