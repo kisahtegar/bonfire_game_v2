@@ -11,15 +11,15 @@ class GameSpriteSheet {
         ),
       );
 
-
   static smokeExplosion() => SpriteAnimation.load(
         'smoke_explosin.png',
         SpriteAnimationData.sequenced(
           amount: 6,
           stepTime: 0.1,
           textureSize: Vector2(16, 16),
+        ),
       );
-  
+
   // Fireball attack effect in right position.
   static Future<SpriteAnimation> fireBallAttackRight() => SpriteAnimation.load(
         'player/fireball_right.png',
