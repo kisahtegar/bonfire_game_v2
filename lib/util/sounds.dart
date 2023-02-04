@@ -11,4 +11,8 @@ class Sounds {
       'sound_interaction.wav',
     ]);
   }
+
+  static void attackEnemyMelee() {
+    FlameAudio.play('attack_enemy.mp3', volume: 0.4);
+  }
 }
