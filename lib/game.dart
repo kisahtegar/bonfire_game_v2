@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'decoration/torch.dart';
 import 'enemies/goblin_enemy.dart';
+import 'enemies/miniboss_enemy.dart';
 import 'main.dart';
 import 'npc/wizard_npc.dart';
 import 'player/knight.dart';
@@ -74,6 +75,7 @@ class _GameState extends State<Game> implements GameListener {
             'torch': (p) => Torch(p.position),
             'wizard': (p) => WizardNpc(p.position),
             'goblin': (p) => GoblinEnemy(p.position),
+            'minibos': (p) => MiniBoss(p.position),
           },
         ),
         progress: Container(
