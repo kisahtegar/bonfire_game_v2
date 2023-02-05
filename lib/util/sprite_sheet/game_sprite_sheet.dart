@@ -69,4 +69,13 @@ class GameSpriteSheet {
           textureSize: Vector2(32, 32),
         ),
       );
+
+  static Future<SpriteAnimation> explosion() => SpriteAnimation.load(
+        'explosion.png',
+        SpriteAnimationData.sequenced(
+          amount: 7,
+          stepTime: 0.1,
+          textureSize: Vector2(32, 32),
+        ),
+      );
 }
