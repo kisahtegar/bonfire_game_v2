@@ -7,27 +7,30 @@ import '../util/sounds.dart';
 import '../util/sprite_sheet/enemy_sprite_sheet.dart';
 import '../util/sprite_sheet/game_sprite_sheet.dart';
 
-class GoblinEnemy extends SimpleEnemy with ObjectCollision {
+class Imp extends SimpleEnemy with ObjectCollision {
   final Vector2 initPosition;
-  double attack = 5;
+  double attack = 10;
 
-  GoblinEnemy(this.initPosition)
+  Imp(this.initPosition)
       : super(
-          animation: EnemySpriteSheet.goblinAnimations(),
+          animation: EnemySpriteSheet.impAnimations(),
           position: initPosition,
           size: Vector2.all(tileSize * 0.8),
-          speed: tileSize / 0.35,
-          life: 120,
+          speed: tileSize / 0.30,
+          life: 80,
         ) {
     setupCollision(
       CollisionConfig(
         collisions: [
           CollisionArea.rectangle(
             size: Vector2(
-              valueByTileSize(7),
-              valueByTileSize(7),
+              valueByTileSize(6),
+              valueByTileSize(6),
             ),
-            align: Vector2(valueByTileSize(3), valueByTileSize(4)),
+            align: Vector2(
+              valueByTileSize(3),
+              valueByTileSize(5),
+            ),
           ),
         ],
       ),
@@ -46,12 +49,23 @@ class GoblinEnemy extends SimpleEnemy with ObjectCollision {
   @override
   void update(double dt) {
     super.update(dt);
-
     seeAndMoveToPlayer(
+      radiusVision: tileSize * 5,
       closePlayer: (player) {
         execAttack();
       },
-      radiusVision: tileSize * 4,
+    );
+  }
+
+  void execAttack() {
+    simpleAttackMelee(
+      size: Vector2.all(tileSize * 0.62),
+      damage: attack,
+      interval: 300,
+      animationRight: EnemySpriteSheet.enemyAttackEffectRight(),
+      execute: () {
+        Sounds.attackEnemyMelee();
+      },
     );
   }
 
@@ -66,18 +80,6 @@ class GoblinEnemy extends SimpleEnemy with ObjectCollision {
     );
     removeFromParent();
     super.die();
-  }
-
-  void execAttack() {
-    simpleAttackMelee(
-      size: Vector2.all(tileSize * 0.62),
-      damage: attack,
-      interval: 800,
-      animationRight: EnemySpriteSheet.enemyAttackEffectRight(),
-      execute: () {
-        Sounds.attackEnemyMelee();
-      },
-    );
   }
 
   @override

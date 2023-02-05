@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +9,7 @@ import '../util/sprite_sheet/game_sprite_sheet.dart';
 
 class MiniBoss extends SimpleEnemy with ObjectCollision {
   final Vector2 initPosition;
-  double attack = 50;
+  double attack = 15;
   bool _seePlayerClose = false;
 
   MiniBoss(this.initPosition)
