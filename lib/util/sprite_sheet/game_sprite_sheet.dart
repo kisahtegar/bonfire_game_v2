@@ -87,4 +87,13 @@ class GameSpriteSheet {
           textureSize: Vector2(32, 32),
         ),
       );
+
+  static spikes() => SpriteAnimation.load(
+        'items/spikes.png',
+        SpriteAnimationData.sequenced(
+          amount: 10,
+          stepTime: 0.1,
+          textureSize: Vector2(16, 16),
+        ),
+      );
 }

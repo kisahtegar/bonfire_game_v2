@@ -4,6 +4,8 @@ import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
 
 import 'decoration/door.dart';
+import 'decoration/door_key.dart';
+import 'decoration/spikes.dart';
 import 'decoration/torch.dart';
 
 import 'enemies/boss_enemy.dart';
@@ -73,6 +75,8 @@ class _GameState extends State<Game> implements GameListener {
       'boss': (p) => Boss(p.position),
       'kid': (p) => Kid(p.position),
       'door': (p) => Door(p.position, p.size),
+      'spikes': (p) => Spikes(p.position),
+      'key': (p) => DoorKey(p.position),
     };
     return Material(
       color: Colors.transparent,
