@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 
 import 'decoration/torch.dart';
 
+import 'enemies/boss_enemy.dart';
 import 'enemies/imp_enemy.dart';
 import 'interface/knight_interface.dart';
 import 'enemies/goblin_enemy.dart';
 import 'enemies/miniboss_enemy.dart';
 import 'main.dart';
+import 'npc/kid.dart';
 import 'npc/wizard_npc.dart';
 import 'player/knight.dart';
 
@@ -81,6 +83,8 @@ class _GameState extends State<Game> implements GameListener {
             'goblin': (p) => GoblinEnemy(p.position),
             'mini_boss': (p) => MiniBoss(p.position),
             'imp': (p) => Imp(p.position),
+            'boss': (p) => Boss(p.position),
+            'kid': (p) => Kid(p.position),
           },
         ),
         progress: Container(
