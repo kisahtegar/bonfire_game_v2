@@ -36,4 +36,12 @@ class Sounds {
   static void playBackgroundBossSound() {
     FlameAudio.bgm.play('battle_boss.mp3');
   }
+
+  static stopBackgroundSound() {
+    return FlameAudio.bgm.stop();
+  }
+
+  static void dispose() {
+    FlameAudio.bgm.dispose();
+  }
 }

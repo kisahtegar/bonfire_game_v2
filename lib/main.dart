@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'game.dart';
+import 'menu.dart';
 import 'util/localization/my_localizations_delegate.dart';
 import 'util/sounds.dart';
 
@@ -23,7 +23,7 @@ void main() async {
       theme: ThemeData(
         fontFamily: 'Normal',
       ),
-      home: const Game(),
+      home: const Menu(),
       supportedLocales: MyLocalizationsDelegate.supportedLocales(),
       localizationsDelegates: [
         myLocation,
