@@ -9,7 +9,7 @@ import '../util/sprite_sheet/game_sprite_sheet.dart';
 
 class GoblinEnemy extends SimpleEnemy with ObjectCollision {
   final Vector2 initPosition;
-  double attack = 5;
+  double attack = 2;
 
   GoblinEnemy(this.initPosition)
       : super(
