@@ -9,7 +9,7 @@ import '../util/sprite_sheet/game_sprite_sheet.dart';
 
 class Imp extends SimpleEnemy with ObjectCollision {
   final Vector2 initPosition;
-  double attack = 10;
+  double attack = 5;
 
   Imp(this.initPosition)
       : super(

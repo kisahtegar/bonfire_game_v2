@@ -2,20 +2,25 @@ import 'dart:math';
 
 import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
+import 'decoration/door.dart';
+import 'decoration/door_key.dart';
+import 'decoration/spikes.dart';
 import 'decoration/torch.dart';
-
 import 'enemies/boss_enemy.dart';
-import 'enemies/imp_enemy.dart';
-import 'interface/knight_interface.dart';
 import 'enemies/goblin_enemy.dart';
+import 'enemies/imp_enemy.dart';
 import 'enemies/miniboss_enemy.dart';
+import 'interface/knight_interface.dart';
 import 'main.dart';
 import 'npc/kid.dart';
 import 'npc/wizard_npc.dart';
 import 'player/knight.dart';
+import 'util/dialogs.dart';
 
 class Game extends StatefulWidget {
+  static bool useJoystick = true;
   const Game({super.key});
 
   @override
@@ -23,6 +28,7 @@ class Game extends StatefulWidget {
 }
 
 class _GameState extends State<Game> implements GameListener {
+  bool showGameOver = false;
   late GameController _gameController;
 
   @override
@@ -62,7 +68,30 @@ class _GameState extends State<Game> implements GameListener {
         )
       ],
     );
+    if (!Game.useJoystick) {
+      joystick = Joystick(
+        keyboardConfig: KeyboardConfig(
+          keyboardDirectionalType: KeyboardDirectionalType.wasdAndArrows,
+          acceptedKeys: [
+            LogicalKeyboardKey.space,
+            LogicalKeyboardKey.keyZ,
+          ],
+        ),
+      );
+    }
 
+    var objectsBuilder2 = {
+      'torch': (p) => Torch(p.position),
+      'wizard': (p) => WizardNpc(p.position),
+      'goblin': (p) => GoblinEnemy(p.position),
+      'mini_boss': (p) => MiniBoss(p.position),
+      'imp': (p) => Imp(p.position),
+      'boss': (p) => Boss(p.position),
+      'kid': (p) => Kid(p.position),
+      'door': (p) => Door(p.position, p.size),
+      'spikes': (p) => Spikes(p.position),
+      'key': (p) => DoorKey(p.position),
+    };
     return Material(
       color: Colors.transparent,
       child: BonfireWidget(
@@ -77,15 +106,7 @@ class _GameState extends State<Game> implements GameListener {
         map: WorldMapByTiled(
           'tiled/map.json',
           forceTileSize: Vector2(tileSize, tileSize),
-          objectsBuilder: {
-            'torch': (p) => Torch(p.position),
-            'wizard': (p) => WizardNpc(p.position),
-            'goblin': (p) => GoblinEnemy(p.position),
-            'mini_boss': (p) => MiniBoss(p.position),
-            'imp': (p) => Imp(p.position),
-            'boss': (p) => Boss(p.position),
-            'kid': (p) => Kid(p.position),
-          },
+          objectsBuilder: objectsBuilder2,
         ),
         progress: Container(
           color: Colors.black,
@@ -109,6 +130,27 @@ class _GameState extends State<Game> implements GameListener {
 
   @override
   void updateGame() {
-    // TODO: implement updateGame
+    if (_gameController.player != null &&
+        _gameController.player?.isDead == true) {
+      if (!showGameOver) {
+        showGameOver = true;
+        _showDialogGameOver();
+      }
+    }
+  }
+
+  void _showDialogGameOver() {
+    setState(() {
+      showGameOver = true;
+    });
+    Dialogs.showGameOver(
+      context,
+      () {
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const Game()),
+          (Route<dynamic> route) => false,
+        );
+      },
+    );
   }
 }
