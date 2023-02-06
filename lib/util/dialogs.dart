@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../menu.dart';
 import 'localization/strings_location.dart';
 
 class Dialogs {
@@ -60,9 +61,7 @@ class Dialogs {
                       fontFamily: 'Normal',
                       fontSize: 30.0),
                 ),
-                const SizedBox(
-                  height: 10.0,
-                ),
+                const SizedBox(height: 10.0),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 100),
                   child: Text(
@@ -74,9 +73,7 @@ class Dialogs {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                const SizedBox(
-                  height: 30.0,
-                ),
+                const SizedBox(height: 30.0),
                 ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(
@@ -86,16 +83,19 @@ class Dialogs {
                           borderRadius: BorderRadius.circular(5.0)),
                     ),
                   ),
-                  child: const Text("OK",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Normal',
-                          fontSize: 17.0)),
+                  child: const Text(
+                    "OK",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Normal',
+                      fontSize: 17.0,
+                    ),
+                  ),
                   onPressed: () {
-                    // Navigator.of(context).pushAndRemoveUntil(
-                    //   MaterialPageRoute(builder: (context) => Menu()),
-                    //   (Route<dynamic> route) => false,
-                    // );
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => const Menu()),
+                      (Route<dynamic> route) => false,
+                    );
                   },
                 )
               ],
