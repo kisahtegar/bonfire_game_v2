@@ -4,6 +4,9 @@ import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'decoration/door.dart';
+import 'decoration/door_key.dart';
+import 'decoration/spikes.dart';
 import 'decoration/torch.dart';
 import 'enemies/boss_enemy.dart';
 import 'enemies/goblin_enemy.dart';
@@ -77,6 +80,18 @@ class _GameState extends State<Game> implements GameListener {
       );
     }
 
+    var objectsBuilder2 = {
+      'torch': (p) => Torch(p.position),
+      'wizard': (p) => WizardNpc(p.position),
+      'goblin': (p) => GoblinEnemy(p.position),
+      'mini_boss': (p) => MiniBoss(p.position),
+      'imp': (p) => Imp(p.position),
+      'boss': (p) => Boss(p.position),
+      'kid': (p) => Kid(p.position),
+      'door': (p) => Door(p.position, p.size),
+      'spikes': (p) => Spikes(p.position),
+      'key': (p) => DoorKey(p.position),
+    };
     return Material(
       color: Colors.transparent,
       child: BonfireWidget(
@@ -91,15 +106,7 @@ class _GameState extends State<Game> implements GameListener {
         map: WorldMapByTiled(
           'tiled/map.json',
           forceTileSize: Vector2(tileSize, tileSize),
-          objectsBuilder: {
-            'torch': (p) => Torch(p.position),
-            'wizard': (p) => WizardNpc(p.position),
-            'goblin': (p) => GoblinEnemy(p.position),
-            'mini_boss': (p) => MiniBoss(p.position),
-            'imp': (p) => Imp(p.position),
-            'boss': (p) => Boss(p.position),
-            'kid': (p) => Kid(p.position),
-          },
+          objectsBuilder: objectsBuilder2,
         ),
         progress: Container(
           color: Colors.black,
