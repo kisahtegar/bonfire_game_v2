@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 
 import 'decoration/door.dart';
 import 'decoration/door_key.dart';
+import 'decoration/potion_life.dart';
 import 'decoration/spikes.dart';
 import 'decoration/torch.dart';
 import 'enemies/boss_enemy.dart';
@@ -91,6 +92,7 @@ class _GameState extends State<Game> implements GameListener {
       'door': (p) => Door(p.position, p.size),
       'spikes': (p) => Spikes(p.position),
       'key': (p) => DoorKey(p.position),
+      'potion': (p) => PotionLife(p.position, 30),
     };
     return Material(
       color: Colors.transparent,
