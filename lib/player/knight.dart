@@ -17,8 +17,11 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
   async.Timer? _timerStamina;
   bool containKey = false;
   bool showObserveEnemy = false;
+  final String nick;
+  late TextPaint _textConfig;
+  Vector2 sizeTextNick = Vector2.zero();
 
-  Knight(Vector2 position)
+  Knight(Vector2 position, this.nick)
       : super(
           animation: PlayerSpriteSheet.playerAnimations(),
           size: Vector2.all(tileSize),
@@ -26,6 +29,13 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
           life: 200,
           speed: tileSize / 0.25,
         ) {
+    _textConfig = TextPaint(
+      style: TextStyle(
+        fontSize: tileSize / 3,
+        color: Colors.white,
+      ),
+    );
+    sizeTextNick = _textConfig.measureText(nick);
     setupCollision(
       CollisionConfig(
         collisions: [
@@ -47,6 +57,12 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
         color: Colors.deepOrangeAccent.withOpacity(0.2),
       ),
     );
+  }
+
+  @override
+  void render(Canvas canvas) {
+    _renderNickName(canvas);
+    super.render(canvas);
   }
 
   // Jostick Action while button pressed.
@@ -213,5 +229,16 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
       ),
     );
     super.receiveDamage(attacker, damage, identify);
+  }
+
+  void _renderNickName(Canvas canvas) {
+    _textConfig.render(
+      canvas,
+      nick,
+      Vector2(
+        position.x + ((width - sizeTextNick.x) / 2),
+        position.y - sizeTextNick.y - 12,
+      ),
+    );
   }
 }
