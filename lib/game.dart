@@ -99,16 +99,14 @@ class _GameState extends State<Game> implements GameListener {
       child: BonfireWidget(
         gameController: _gameController,
         joystick: joystick,
-        player: Knight(
-          Vector2(2 * tileSize, 3 * tileSize),
-        ),
+        player: Knight(Vector2(2 * tileSize, 3 * tileSize), 'kontol'),
         lightingColorGame: Colors.black.withOpacity(0.6),
         background: BackgroundColorGame(Colors.grey[900]!),
         interface: KnightInterface(),
         map: WorldMapByTiled(
-          'tiled/map.json',
+          'tiled/map2.json',
           forceTileSize: Vector2(tileSize, tileSize),
-          objectsBuilder: objectsBuilder2,
+          // objectsBuilder: objectsBuilder2,
         ),
         progress: Container(
           color: Colors.black,
