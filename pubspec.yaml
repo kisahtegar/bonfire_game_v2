@@ -63,6 +63,7 @@ flutter:
     - assets/images/player/
     - assets/images/items/
     - assets/images/tiled/
+    - assets/images/joystick/
     - assets/audio/
     - resources/lang/en.json
     - resources/lang/pt.json
